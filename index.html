@@ -3,37 +3,74 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>FOXHUNT: Ввод кода</title>
+    <title>FOXHUNT // ACCESS PANEL</title>
     <style>
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
         body {
-            background-color: black;
-            color: lime;
-            font-family: monospace;
+            background-color: #000;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
             text-align: center;
             padding-top: 10%;
+            animation: flicker 1.5s infinite;
         }
-        input {
-            background-color: black;
-            color: lime;
-            border: 1px solid lime;
+
+        input, button {
+            background-color: #000;
+            color: #00ff00;
+            border: 1px solid #00ff00;
             padding: 10px;
             font-size: 18px;
+            margin-top: 20px;
         }
+
         button {
-            background-color: lime;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            font-size: 18px;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00ff00;
+            color: black;
+        }
+
+        .terminal {
+            background-color: #111;
+            border: 2px solid #0f0;
+            padding: 20px;
+            margin: 0 auto;
+            width: 60%;
+            box-shadow: 0 0 15px #0f0;
+        }
+
+        .blinking-cursor {
+            font-weight: bold;
+            font-size: 24px;
+            color: #00ff00;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <h1>FOXHUNT: Введи код доступа</h1>
-    <input type="text" id="code" placeholder="Введи код">
-    <button onclick="checkCode()">Проверить</button>
-    <p id="response"></p>
+    <div class="terminal">
+        <h1>FOXHUNT // ACCESS PANEL</h1>
+        <p>ENTER ACCESS CODE TO PROCEED <span class="blinking-cursor">█</span></p>
+        <input type="text" id="code" placeholder="ACCESS CODE">
+        <br>
+        <button onclick="checkCode()">ENTER</button>
+        <p id="response"></p>
+    </div>
 
     <script>
     function decodeBase64(str) {
@@ -44,12 +81,12 @@
 
     function checkCode() {
         let input = document.getElementById("code").value.toLowerCase();
-        let parts = ["cm", "F0", "ZWl0", "eA=="]; 
+        let parts = ["cm", "F0", "ZWl0", "eA=="];
         let secret = decodeBase64(parts.join(""));
         if (input === secret) {
-            document.getElementById("response").innerHTML = "<b>Поздравляю! Переходи на следующий уровень:</b><br><a href='https://i.imgur.com/u8B9brB.jpg' target='_blank'>Нажми здесь</a>";
+            document.getElementById("response").innerHTML = "<b>ACCESS GRANTED</b><br><a href='https://i.imgur.com/u8B9brB.jpg' target='_blank'>NEXT LEVEL</a>";
         } else {
-            document.getElementById("response").innerText = "Неверный код. Попробуй ещё.";
+            document.getElementById("response").innerHTML = "<span style='color: red;'>ACCESS DENIED</span>";
         }
     }
     </script>
