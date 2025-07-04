@@ -36,9 +36,16 @@
     <p id="response"></p>
 
     <script>
+    function decodeBase64(str) {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+
     function checkCode() {
         let input = document.getElementById("code").value.toLowerCase();
-        let secret = String.fromCharCode(114,97,116,101,105,116,120); // "rateitx"
+        let parts = ["cm", "F0", "ZWl0", "eA=="]; 
+        let secret = decodeBase64(parts.join(""));
         if (input === secret) {
             document.getElementById("response").innerHTML = "<b>Поздравляю! Переходи на следующий уровень:</b><br><a href='https://i.imgur.com/u8B9brB.jpg' target='_blank'>Нажми здесь</a>";
         } else {
