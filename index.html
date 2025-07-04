@@ -52,18 +52,6 @@
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
-
-        .next-level {
-            color: #00ff00;
-            font-size: 20px;
-            margin-top: 20px;
-            display: block;
-            text-decoration: underline;
-        }
-
-        .next-level:hover {
-            color: #ffffff;
-        }
     </style>
 </head>
 <body>
@@ -77,24 +65,25 @@
     </div>
 
     <script>
-    function decodeBase64(str) {
-        return decodeURIComponent(atob(str).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-    }
-
-    function checkCode() {
-        let input = document.getElementById("code").value.toLowerCase();
-        let parts = ["cm", "F0", "ZWl0", "eA=="];
-        let secret = decodeBase64(parts.join(""));
-        if (input === secret) {
-            document.getElementById("response").innerHTML =
-                "<b>✅ ДОСТУП РАЗРЕШЁН</b><br><a class='next-level' href='https://i.imgur.com/u8B9brB.jpg' target='_blank'>👉 ПЕРЕЙТИ НА СЛЕДУЮЩИЙ УРОВЕНЬ</a>";
-        } else {
-            document.getElementById("response").innerHTML =
-                "<span style='color: red;'>⛔ ДОСТУП ОТКЛОНЁН</span>";
+        function decodeBase64(str) {
+            return decodeURIComponent(atob(str).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
         }
-    }
+
+        function checkCode() {
+            const input = document.getElementById("code").value.toLowerCase();
+            const keyParts = ["cm", "F0", "ZWl0", "eA=="]; 
+            const validKey = decodeBase64(keyParts.join(""));
+
+            if (input === validKey) {
+                const urlParts = ["aHR0cH", "M6Ly9p", "bWd1ci", "5jb20v", "YS83V1", "pkM2pq"];
+                const secretUrl = decodeBase64(urlParts.join(""));
+                document.getElementById("response").innerHTML = "<b>✅ ДОСТУП РАЗРЕШЁН</b><br><a href='" + secretUrl + "' target='_blank'>👉 ПЕРЕЙТИ К ДОСЬЕ</a>";
+            } else {
+                document.getElementById("response").innerHTML = "<span style='color: red;'>⛔ ДОСТУП ОТКЛОНЁН</span>";
+            }
+        }
     </script>
 </body>
 </html>
