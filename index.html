@@ -1,23 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>FOXHUNT // ACCESS PANEL</title>
+    <title>FOXHUNT // ПАНЕЛЬ ДОСТУПА</title>
     <style>
-        @keyframes flicker {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-
         body {
             background-color: #000;
             color: #00ff00;
             font-family: 'Courier New', monospace;
             text-align: center;
             padding-top: 10%;
-            animation: flicker 1.5s infinite;
         }
 
         input, button {
@@ -60,15 +52,27 @@
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
+
+        .next-level {
+            color: #00ff00;
+            font-size: 20px;
+            margin-top: 20px;
+            display: block;
+            text-decoration: underline;
+        }
+
+        .next-level:hover {
+            color: #ffffff;
+        }
     </style>
 </head>
 <body>
     <div class="terminal">
-        <h1>FOXHUNT // ACCESS PANEL</h1>
-        <p>ENTER ACCESS CODE TO PROCEED <span class="blinking-cursor">█</span></p>
-        <input type="text" id="code" placeholder="ACCESS CODE">
+        <h1>FOXHUNT // ПАНЕЛЬ ДОСТУПА</h1>
+        <p>ВВЕДИТЕ КОД ДОСТУПА ДЛЯ ПРОДОЛЖЕНИЯ <span class="blinking-cursor">█</span></p>
+        <input type="text" id="code" placeholder="КОД ДОСТУПА">
         <br>
-        <button onclick="checkCode()">ENTER</button>
+        <button onclick="checkCode()">ВВЕСТИ</button>
         <p id="response"></p>
     </div>
 
@@ -84,9 +88,11 @@
         let parts = ["cm", "F0", "ZWl0", "eA=="];
         let secret = decodeBase64(parts.join(""));
         if (input === secret) {
-            document.getElementById("response").innerHTML = "<b>ACCESS GRANTED</b><br><a href='https://i.imgur.com/u8B9brB.jpg' target='_blank'>NEXT LEVEL</a>";
+            document.getElementById("response").innerHTML =
+                "<b>✅ ДОСТУП РАЗРЕШЁН</b><br><a class='next-level' href='https://i.imgur.com/u8B9brB.jpg' target='_blank'>👉 ПЕРЕЙТИ НА СЛЕДУЮЩИЙ УРОВЕНЬ</a>";
         } else {
-            document.getElementById("response").innerHTML = "<span style='color: red;'>ACCESS DENIED</span>";
+            document.getElementById("response").innerHTML =
+                "<span style='color: red;'>⛔ ДОСТУП ОТКЛОНЁН</span>";
         }
     }
     </script>
